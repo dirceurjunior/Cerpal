@@ -1,0 +1,72 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">Manutenção de Usuários</ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="frmPesquisa">
+
+            <h1 class="dk-page-title">Pesquisa Vendedores</h1>
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton id="botaoPesquisar" value="Pesquisar" action="#{pesquisaUsuariosBean.pesquisar}" update="@form"/>
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Novo" outcome="/usuarios/CadastroUsuario" />
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <div class="ui-fluid">
+
+                <p:panelGrid columns="2" layout="grid" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-2, ui-grid-col-4">
+                    <p:outputLabel value="NOME" for="nome" />
+                    <p:inputText id="nome" value="#{pesquisaUsuariosBean.filtro.nome}" onkeyup="this.value = this.value.toUpperCase();"/>
+                    <p:outputLabel value="CPF" for="cpf"/>
+                    <p:inputMask mask="999.999.999-99" id="cpf" value="#{pesquisaUsuariosBean.filtro.cpf}"/>
+                </p:panelGrid>
+
+                <p:dataTable id="usuariosTable" value="#{pesquisaUsuariosBean.usuariosFiltrados}" var="usuario" style="margin-top: 10px;" emptyMessage="NENHUM USUARIO ENCONTRADO" rows="10"
+                             paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="10, 25, 50" reflow="true">
+                    <p:column headerText="NOME">
+                        <h:outputText value="#{usuario.nome}"/>
+                    </p:column>
+                     <p:column headerText="CODIGO">
+                         <h:outputText value="#{usuario.codigo}"/>
+                    </p:column>
+                    <p:column headerText="CPF">
+                        <h:outputText value="#{usuario.cpf}"/>
+                    </p:column>
+                    <p:column headerText="EMAIL">
+                        <h:outputText value="#{usuario.email}"/>
+                    </p:column>
+                    <p:column headerText="EDITAR" >
+                        <p:button icon="ui-icon-pencil" title="Editar" outcome="/usuarios/CadastroUsuario">
+                            <f:param name="usuario" value="#{usuario.id}"/>
+                        </p:button>
+                    </p:column>
+                    <p:column headerText="EXCLUIR">
+                        <p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show();" process="@this" update=":frmPesquisa:confirmacaoExclusaoDialog">
+                            <f:setPropertyActionListener value="#{usuario}" target="#{pesquisaUsuariosBean.usuarioSelecionado}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:confirmDialog id="confirmacaoExclusaoDialog" header="Exclusão de Usuario" message="Tem certeza que deseja excluir o usuario #{pesquisaUsuariosBean.usuarioSelecionado.nome}?" widgetVar="confirmacaoExclusao">
+                    <p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;"/>
+                    <p:commandButton value="Sim" oncomplete="PF('confirmacaoExclusao').hide();" action="#{pesquisaUsuariosBean.excluir}" process="@this" update=":frmPesquisa:usuariosTable"/>
+                </p:confirmDialog>
+
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

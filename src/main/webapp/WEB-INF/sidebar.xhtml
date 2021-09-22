@@ -1,0 +1,104 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/serenity">
+
+    <div class="layout-sidebar #{guestPreferences.darkMenu ? 'layout-sidebar-dark' : ''}">
+        <div class="sidebar-logo">
+            <!--            <a href="./dashboard.xhtml">-->
+            <p:graphicImage name="images/logo-slim.png" library="serenity-layout" />
+            <span class="app-name">CERPAL</span>
+            <!--</a>-->
+            <a href="#" class="sidebar-anchor" title="Fixar Menu"></a>
+        </div>
+
+        <div class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <div class="layout-menu-container">
+                    <h:form id="menuform">
+                        <pm:menu>
+                            <p:menuitem id="sr_dashboard" value="Dashboard" icon="&#xE871;" outcome="/dashboard"/>
+                            <p:submenu id="sr_faturas" label="Faturas" icon="&#xE8B8;" rendered="true">
+                                <p:menuitem id="sr_conta" value="Incluir" icon="&#xE871;" outcome="/contas/CadastroConta"/>
+                                <p:menuitem id="sr_baixa" value="Baixar" icon="&#xE871;" outcome="/baixas/CadastroBaixa"/>
+                                <p:menuitem id="sr_alteracao" value="Alterar" icon="&#xE871;" outcome="/baixas/CadastroBaixa"/>
+                            </p:submenu>
+
+                            <p:menuitem id="sr_2conta" value="2ª Via Conta" icon="&#xE871;" outcome="/contas/SegundaVia"/>
+                            <p:menuitem id="sr_sms" value="Enviar SMS" icon="&#xE871;" outcome="/sms/EnviarSMS"/>
+                            <p:menuitem id="sr_compactar" value="Compactar" icon="&#xE871;" outcome="/contas/CompactarArquivo"/>
+                            <p:menuitem id="sr_cooperados" value="Cooperados" icon="&#xE871;" outcome="/cooperados/CadastroCooperado"/>
+                            <p:menuitem id="sr_produto" value="Produtos" icon="&#xE871;" outcome="/produtos/CadastroProduto"/>
+                            <p:menuitem id="sr_usuario" value="Usuários" icon="&#xE871;" outcome="/usuarios/CadastroUsuario"/>
+                            <p:menuitem id="sr_website" value="Website" icon="&#xE871;" outcome="/landing"/>
+                            <p:submenu id="sr_customization1" label="Menu Modes" icon="&#xE8B8;" rendered="false">
+                                <p:menuitem id="menu1" value="Light Menu" icon="&#xE893;" actionListener="#{guestPreferences.setDarkMenu(false)}" ajax="false"/>
+                                <p:menuitem id="menu2" value="Dark Menu" icon="&#xE892;" actionListener="#{guestPreferences.setDarkMenu(true)}" ajax="false"/>
+                            </p:submenu>
+                            <p:submenu id="sr_layouts" label="Layout Palette" icon="&#xE40A;" rendered="false">
+                                <p:submenu label="Flat" icon="&#xE243;">
+                                    <p:menuitem id="layout1" value="Indigo - Pink" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('indigo')}" ajax="false" />
+                                    <p:menuitem id="layout2" value="Pink - Amber" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('pink')}" ajax="false" />
+                                    <p:menuitem id="layout3" value="Purple - Pink" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('purple')}" ajax="false" />
+                                    <p:menuitem id="layout4" value="Deep Purple - Orange" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('deeppurple')}" ajax="false" />
+                                    <p:menuitem id="layout5" value="Blue - Amber" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('blue')}" ajax="false" />
+                                    <p:menuitem id="layout6" value="Light Blue - Blue Grey" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('lightblue')}" ajax="false" />
+                                    <p:menuitem id="layout7" value="Cyan - Amber" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('cyan')}" ajax="false" />
+                                    <p:menuitem id="layout8" value="Teal - Red" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('teal')}" ajax="false" />
+                                    <p:menuitem id="layout9" value="Green - Brown" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('green')}" ajax="false" />
+                                    <p:menuitem id="layout10" value="Light Green - Purple" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('lightgreen')}" ajax="false" />
+                                    <p:menuitem id="layout11" value="Lime - Blue Grey" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('lime')}" ajax="false" />
+                                    <p:menuitem id="layout12" value="Yellow - Teal" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('yellow')}" ajax="false" />
+                                    <p:menuitem id="layout13" value="Amber - Pink" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('amber')}" ajax="false" />
+                                    <p:menuitem id="layout14" value="Orange - Indigo" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('orange')}" ajax="false" />
+                                    <p:menuitem id="layout15" value="Deep Orange - Cyan" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('deeporange')}" ajax="false" />
+                                    <p:menuitem id="layout16" value="Brown - Cyan" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('brown')}" ajax="false" />
+                                    <p:menuitem id="layout17" value="Grey - Indigo" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('grey')}" ajax="false" />
+                                    <p:menuitem id="layout18" value="Blue Grey - Green" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('bluegrey')}" ajax="false" />
+                                </p:submenu>
+                                <p:submenu label="Special" icon="&#xE243;">
+                                    <p:menuitem id="layout19" value="Reflection" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('reflection')}" ajax="false" />
+                                    <p:menuitem id="layout20" value="Moody" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('moody')}" ajax="false" />
+                                    <p:menuitem id="layout21" value="Cityscape" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('cityscape')}" ajax="false" />
+                                    <p:menuitem id="layout22" value="Cloudy" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('cloudy')}" ajax="false" />
+                                    <p:menuitem id="layout23" value="Storm" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('storm')}" ajax="false" />
+                                    <p:menuitem id="layout24" value="Palm" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('palm')}" ajax="false" />
+                                    <p:menuitem id="layout25" value="Flatiron" icon="&#xE3AE;" actionListener="#{guestPreferences.setLayout('flatiron')}" ajax="false" />
+                                </p:submenu>
+                            </p:submenu>
+                            <p:submenu id="sr_themes" label="Themes" icon="&#xE3AE;" rendered="false">
+                                <f:attribute name="badge" value="8" />
+                                <p:menuitem id="theme1" value="Indigo - Pink" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('indigo')}" ajax="false" />
+                                <p:menuitem id="theme2" value="Pink - Amber" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('pink')}" ajax="false" />
+                                <p:menuitem id="theme3" value="Purple - Pink" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('purple')}" ajax="false" />
+                                <p:menuitem id="theme4" value="Deep Purple - Orange" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('deeppurple')}" ajax="false" />
+                                <p:menuitem id="theme5" value="Blue - Amber" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('blue')}" ajax="false" />
+                                <p:menuitem id="theme6" value="Light Blue - Blue Grey" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('lightblue')}" ajax="false" />
+                                <p:menuitem id="theme7" value="Cyan - Amber" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('cyan')}" ajax="false" />
+                                <p:menuitem id="theme8" value="Teal - Red" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('teal')}" ajax="false" />
+                                <p:menuitem id="theme9" value="Green - Brown" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('green')}" ajax="false" />
+                                <p:menuitem id="theme10" value="Light Green - Purple" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('lightgreen')}" ajax="false" />
+                                <p:menuitem id="theme11" value="Lime - Blue Grey" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('lime')}" ajax="false" />
+                                <p:menuitem id="theme12" value="Yellow - Teal" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('yellow')}" ajax="false" />
+                                <p:menuitem id="theme13" value="Amber - Pink" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('amber')}" ajax="false" />
+                                <p:menuitem id="theme14" value="Orange - Indigo" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('orange')}" ajax="false" />
+                                <p:menuitem id="theme15" value="Deep Orange - Cyan" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('deeporange')}" ajax="false" />
+                                <p:menuitem id="theme16" value="Brown - Cyan" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('brown')}" ajax="false" />
+                                <p:menuitem id="theme17" value="Grey - Indigo" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('grey')}" ajax="false" />
+                                <p:menuitem id="theme18" value="Blue Grey - Green" icon="&#xE891;" actionListener="#{guestPreferences.setTheme('bluegrey')}" ajax="false" />
+                            </p:submenu>
+
+                            <p:menuitem id="sr_close" value="Sair" icon="&#xE870;" url="/logout" />
+
+                        </pm:menu>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

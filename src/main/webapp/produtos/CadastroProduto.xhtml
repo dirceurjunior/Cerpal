@@ -1,0 +1,118 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">#{cadastroProdutoBean.editando ? 'Edição de Produto' : 'Novo Produto'}</ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><p:link outcome="/empty">Empty</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <f:metadata>
+            <o:viewParam name="produto" value="#{cadastroProdutoBean.produto}"/>
+            <f:event listener="#{cadastroProdutoBean.inicializar}" type="preRenderView"/>
+        </f:metadata>
+
+        <h:form>
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card">
+                        <h1>#{cadastroProdutoBean.editando ? 'Edição de Produto' : 'Novo Produto'}</h1>
+
+                        <p:messages autoUpdate="true" closable="true"/>
+
+                        <p:toolbar style="margin-bottom: 15px;">
+                            <p:toolbarGroup>
+                                <p:button value="Novo" outcome="/produtos/CadastroProduto"/>
+                                <p:commandButton id="botaoSalvar" value="Salvar" action="#{cadastroProdutoBean.salvar}" update="@form"/>
+                            </p:toolbarGroup>
+
+                            <p:toolbarGroup align="right">
+                                <p:button value="Pesquisa" outcome="/produtos/PesquisaProdutos"/>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+
+                        <p:panelGrid id="painel" columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group ui-fluid" >
+
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText id="nome" maxlength="150" value="#{cadastroProdutoBean.produto.nome}" onkeyup="this.value = this.value.toUpperCase();"/>
+                                <label for="nome">Nome</label>
+                            </h:panelGroup>
+
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText id="valorUnitario" maxlength="10" styleClass="moeda" value="#{cadastroProdutoBean.produto.valorUnitario}" onfocus="configurarMoeda();" >
+                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+                                </p:inputText>
+                                <label for="valorUnitario">Valor Unitário</label>
+                            </h:panelGroup>
+
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:selectOneMenu id="tipoSituacao" styleClass="sem-bordas" value="#{cadastroProdutoBean.produto.tipoSituacao}">
+                                    <f:selectItem itemLabel="SITUAÇÃO DO PRODUTO" itemValue=""/>
+                                    <f:selectItems value="#{enumBean.tipoAtivoInativos}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+                                </p:selectOneMenu>
+                                <!--                                <label for="tipoSituacao">Situação</label>-->
+                            </h:panelGroup>
+
+                            <p:fileUpload label="Selecionar..." 
+                                          invalidFileMessage="Tipo de arquivo não permitido" 
+                                          invalidSizeMessage="Tamanho excedido(500kb)" 
+                                          fileUploadListener="#{cadastroProdutoBean.adicionarAnexo}" 
+                                          mode="advanced" 
+                                          multiple="false"
+                                          fileLimit="1"
+                                          update="anexosTable"
+                                          auto="true" 
+                                          sizeLimit="524288" 
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png|doc|pdf|txt|docx|bmp|xls|xlsx|ppt|pptx|xml)$/" />
+
+
+
+                            <p:dataTable id="anexosTable" value="#{cadastroProdutoBean.produto.anexos}" var="anexo" style="margin-top: 20px;" 
+                                         emptyMessage="NENHUM ANEXO ENCONTRADO" >
+                                <p:column headerText="Descrição">
+                                    <p:graphicImage value="#{imagemBean.st}" id="imagem" height="100px" width="100px"/>
+                                </p:column>
+                                <p:column headerText="Download">  
+                                    <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-fw fa-download" process="@this">
+                                        <p:fileDownload value="#{cadastroProdutoBean.baixarAnexo(anexo)}" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column headerText="Excluir" >
+                                    <p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('confirmacaoExclusaoAnexo').show();" process="@this">
+                                        <f:setPropertyActionListener value="#{anexo}" target="#{cadastroProdutoBean.anexoSelecionado}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+
+                            <p:confirmDialog header="Exclusão de Anexos" message="Tem certeza que deseja excluir o anexo?" widgetVar="confirmacaoExclusaoAnexo">
+                                <p:button value="Não" onclick="PF('confirmacaoExclusaoAnexo').hide(); return false;"/>
+                                <p:commandButton value="Sim" action="#{cadastroProdutoBean.removerAnexo}" oncomplete="PF('confirmacaoExclusaoAnexo').hide();" process="@this" update="anexosTable"/>
+                            </p:confirmDialog>
+
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:outputLabel id="dataCadastro" value="#{cadastroProdutoBean.produto.dataCadastro}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" type="time" />
+                                </p:outputLabel>
+                                <label for="dataCadastro">Data de Cadastro</label>
+                            </h:panelGroup>
+
+                        </p:panelGrid>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

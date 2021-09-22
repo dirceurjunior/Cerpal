@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        </f:facet>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5_om42Gw3qWef53chgPTjdEyIzwOXSMM" type="text/javascript"></script>
+        <title>Cerpal Palmital</title>
+        <script type="text/javascript">
+            $(function () {
+                $('#landing-menu-button').on('click', function (e) {
+                    $('#landing-menu').toggleClass('landing-menu-active')
+                    e.preventDefault();
+                });
+
+                $('#landing-menu').on('click', function () {
+                    $('#landing-menu').removeClass('landing-menu-active')
+                });
+            });
+        </script>
+
+        <style type="text/css">
+            .landing-body #contact {
+                background-color:  #1B5E20 !important; 
+            }
+            .landing-body #contact
+            .md-inputfield label {
+                color: #ffffff;
+            }
+            .landing-body #introduction > div{
+                padding-top: 50px;
+                padding-bottom: 30px;
+            }
+            .landing-body #stats > div{
+                padding-top: 30px;
+                padding-bottom: 20px;
+            }
+            .landing-body #introduction > div p{
+                max-width: 80%;
+                font-size: 16px;
+                text-align: justify;
+            }
+            .landing-body #contact
+            .ui-inputfield {
+                border-color: #ffffff;
+            }
+            .landing-body #header > div #landing-menu > li:hover a{
+                border-color: #CDDC39;
+                color: #CDDC39;
+                font-weight: 900;
+            }
+        </style>      
+
+        <h:outputScript name="js/layout.js" library="serenity-layout" />
+        <h:outputScript name="js/ripple.js" library="serenity-layout" />
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
+    </h:head>
+
+    <f:metadata>
+        <f:viewAction action="#{cadastroProdutoBean.inicializar}"/>
+    </f:metadata>
+
+
+    <h:body styleClass="landing-body">
+        <h:form id="frm">
+            <div class="landing-wrapper">
+                <div id="header">
+                    <div>
+                        <p:graphicImage name="images/logo-colored.png" library="serenity-layout" styleClass="logo"/>
+                        <a id="landing-menu-button" href="#">
+                            <i class="material-icons">&#xE5D2;</i>
+                        </a>
+
+                        <ul id="landing-menu">
+                            <li>
+                                <a href="#home">INICIO</a>
+                            </li>
+                            <li>
+                                <a href="#features">SERVIÇOS</a>
+                            </li>
+                            <!--                            <li>
+                                                            <a href="#stats">FOTOS</a>
+                                                        </li>-->
+
+                            <!--                        <li>
+                                                        <a href="#video">2ª VIA CONTA</a>
+                                                    </li>-->
+                            <!--                            <li>
+                                                            <a href="#pricing">PRODUTOS</a>
+                                                        </li>-->
+                            <li>
+                                <a href="#stats">CONTA</a>
+                            </li>
+
+                            <li>
+                                <a href="#contact">CONTATO</a>
+                            </li>
+
+                            <li>
+                                <a href="./dashboard.xhtml">LOGIN</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <!--                <div id="video" >
+                                    <div style="font-size: 18px;">
+                                        <h2 style="text-align: center; text-decoration: underline; color: #124f16">COMUNICADOS</h2>
+                                        <p style="text-align: justify; text-indent: 0em; color: #124f16; font-weight: bold;">    
+                                            <i class="fa fa-fw fa-arrow-right"></i>
+                                            DEVIDO RECOMENDAÇÕES DA FECOERESP E DECRETO MUNICIPAL A ASSEMBLÉIA GERAL ORDINÁRIA  
+                                            QUE SERIA REALIZADA NO DIA 27/03/2020 <u>FOI CANCELADA.</u>
+                                        </p>
+                                        <p style="text-align: justify; text-indent: 0em; color: #124f16; font-weight: bold;">     
+                                            <i class="fa fa-fw fa-arrow-right"></i>
+                                            INFORMAMOS QUE ESTAMOS COM O ATENDIMENTO PRESENCIAL FUNCIONANDO NORMALMENTE  <br/>
+                                        </p>
+                                                                <p style="text-align: justify; text-indent: 0em; color: #124f16; font-weight: bold;">     
+                                                                    <i class="fa fa-fw fa-arrow-right"></i>
+                                                                    COMO MEDIDA DE PREVENÇÃO INFORMAMOS QUE A PARTIR DESTA TERÇA FEIRA 24/03/2020, 
+                                                                    ESTAREMOS FECHADOS AO ATENDIMENTO PRESENCIAL, ESTAREMOS ATENDENDO SOMENTE PELOS TELEFONES: <br/>
+                                                                </p>
+                                                                 <p style="text-align: justify; text-indent: 0em; color: #124f16; font-weight: bold;">     
+                                                                    <i class="fa fa-fw fa-whatsapp"></i>
+                                                                    (18) 9 9748-3213 
+                                                                    <br/>
+                                                                    <i class="fa fa-fw fa-whatsapp"></i>
+                                                                    (18) 9 9777-7294 
+                                                                    <br/>
+                                                                    <i class="fa fa-fw fa-at"></i>
+                                                                    contato@cooperativacerpal.com.br
+                                                                    <br/>
+                                                                    <i class="fa fa-fw fa-at"></i>
+                                                                    cerpal.77@hotmail.com
+                                                                </p>
+                                    </div>
+                                </div>-->
+
+<!--                <div id="video" >
+                    <div style="font-size: 18px;">
+                        <h2 style="text-align: center; text-decoration: underline;">EDITAL  DE  CONVOCAÇÃO  ASSEMBLEIA  GERAL  
+                            ORDINÁRIA-AGO
+                        </h2>
+                        <p style="text-align: justify; text-indent: 6em">          
+                            O Presidente da <b>Cooperativa de Eletrificação Rural da Região de Palmital, "CERPAL",</b> 
+                            no uso das atribuições que lhe confere o Artigo 23 do Estatuto Social, 
+                            convoca os Senhores(as) Associados(as) para se reunirem em <b><u>AGO-Assembleia Geral Ordinária</u></b> a ser realizada 
+                            no dia <b>24 (vinte e quatro) de Março de 2021, nas dependências da Sede da CERPAL</b>,
+                            sito à Avenida Reginalda Leão, n.º 37 - Centro - Palmital - SP,  às 17:00 horas em 1ª (primeira) convocação,
+                            com a presença de 2/3 do número de associados(as); em 2ª (segunda) convocação, 
+                            para as 18:00 horas do mesmo dia e local da 1ª convocação, com a presença da metade e mais 1 (um) 
+                            dos associados(as) ou ainda em <b>3ª (terceira) convocação para as 19:00 horas</b> do mesmo dia e local da 1ª e 2ª 
+                            convocações, com a presença de no mínimo de 10 (dez) associados(as) para deliberarem sobre a seguinte 
+                            ordem do dia.
+                        </p>
+                        <p style="text-align: center; font-weight: 900;"> 
+                            <h3 style="text-align: center; text-decoration: underline;">ORDEM DO DIA </h3>                             
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">       
+                            a) Prestação de contas do exercício de 2020, compreendendo: Relatório da Diretoria,
+                            Balanço e Demonstração de Sobras ou Perdas, com parecer do Conselho Fiscal;
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            b) Destinação das Sobras ou Perdas Verificadas;
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            c) Pró-Labore para o Conselho de Administração;
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            d) Cédula de Presença para o Conselho Fiscal;
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            f) Eleição do Conselho Fiscal para o exercício: 01/04/2021 a 31/03/2022 e
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            g) Assuntos Pertinentes somente ao que foi apresentado nesta Assembleia (AGO).
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            <b>NOTA:</b>  Para os efeitos  legais e estatutários, declara-se que  o número de  Associados   
+                            (as) da Cooperativa nesta data é de 1.105 (Um mil, cento e cinco), regularmente inscritos. 
+                        </p>
+                        <p style="text-align: justify; text-indent: 3em">     
+                            <b>NOTA:</b>  Serão seguidos os protocolos de segurança: distanciamento, máscara e álcool em gel, 
+                            conforme Decreto Municipal nº 4.716 de 05/02/2021. 
+                        </p>
+                        <p style="text-align: right;">
+                            Palmital-SP, 19 de Fevereiro de 2.021
+                        </p>
+                        <p>
+                            <b>José Montechiesi</b>
+                            <br/>
+                            Presidente
+                            <br/>
+                            CPF. 959.871.008-44
+                            <br/>
+                            Palmital - São Paulo.
+                        </p>
+                    </div>
+                </div>-->
+
+                <div id="introduction">
+                    <div>
+                        <h1>Cooperativa de Eletrificação Rural da Região de Palmital</h1>
+                        <p>          
+                            A <b>CERPAL</b> foi criada no dia 17 de dezembro de 1977, por meio de assembléia constitutiva no ginásio Delço Mazeto, 
+                            com a presença de cerca de 100 pessoas, entre eles Rubens Rossi, Eloy Atanis Garcia, Beto Leão, Sebastião Batista de Oliveira, 
+                            José Pascoalino dos Reis, Ângelo Biazon, Anísio Zimermano, Eurico Messias Cunha, Adão José Alves, João Bernado, Pedro Magrinelli,
+                            Valter José Monteiro, Ermelindo Orlandi, Valdinei Côco, Agostino Henrique de Faria e Alcides Montechiese.
+                            Rubens Rossi liderou o grupo de proprietários rurais que fundou a <b>CERPAL</b>. Eleito primeiro presidente da entidade, ele lembrou das 
+                            dificuldades da montagem da cooperativa de eletrificação rural, pois muitos agricultores não acreditavam que o projeto poderia dar certo em Palmital.<br/>
+                            A <b>CERPAL</b> pode ser considerada como concretização de um sonho iniciado por um grupo de produtores rurais de Palmital, que hoje auxilia 
+                            no desenvolvimento e na qualidade de vida na zona rural da região. Com este espírito empreendedor, enfrentaram dificuldades e conseguiram levar
+                            adiante o projeto de cooperativismo no setor de eletrificação rural, estendendo redes de energia que hoje cotam oito municípios.
+                            A Cooperativa se instalou inicialmente, em junho de 1978, num prédio alugado de Manoel Rainho na Rua José Florêncio Dias nº 20, 
+                            onde começaram os trabalhos administrativos e organizacionais da entidade. Com o crescimento das atividades, 
+                            a <b>CERPAL</b> transferiu suas atividades em 1983  para o prédio maior, na Rua Duque de Caxias nº 187. 
+                            Foi a primeira sede própria da cooperativa, adquirida de Celestino Moreno Parra. Contudo, as amplas instalações não foram suficientes para atender
+                            constante desenvolvimento dos trabalhos e foi utilizado até dezembro 1998, quando houve a compra de uma nova sede. O atual prédio da Cerpal, 
+                            adquirido de Ney Moreira, está localizado na Avenida Reginaldo Leão, nº 37.
+                        </p>
+                        <!--                    <p:button outcome="/dashboard" value="LEARN MORE"  styleClass="pink-btn"/>-->
+                    </div>
+                </div>
+
+                <div id="features">
+                    <div>
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-6 feature-box">
+                                <p:graphicImage name="images/landing/poste.svg" width="90" height="90" library="serenity-layout" />
+                                <div>
+                                    <h3>DISTRIBUIÇÃO DE ENERGIA ELÉTRICA</h3>
+                                </div>
+                            </div>
+
+                            <!--                            <div class="ui-g-12 ui-md-6 feature-box">
+                                                            <p:graphicImage name="images/landing/icon-moderndesign.svg" library="serenity-layout" />
+                                                            <div>
+                                                                <h3>INSTALAÇÕES ELÉTRICAS</h3>
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                            </div>
+                                                        </div>-->
+
+                            <div class="ui-g-12 ui-md-6 feature-box">
+                                <p:graphicImage name="images/landing/carrinho-vermelho.svg" width="100" height="100" library="serenity-layout" />
+                                <div>
+                                    <h3>PRODUTOS ELÉTRICOS EM GERAL</h3>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6 feature-box">
+                                <p:graphicImage name="images/landing/servicos.svg" width="80" height="80" library="serenity-layout" />
+                                <div>
+                                    <h3>PRESTAÇÃO DE SERVIÇOS EM GERAL</h3>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-6 feature-box">
+                                <p:graphicImage name="images/landing/atendimento.svg" width="110" height="111" library="serenity-layout" />
+                                <div>
+                                    <h3>PLANTÃO<p>(18) 9 9748-3213 / (18) 9 9777-7294</p></h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stats">
+                    <div>
+                        <div class="ui-fluid">
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <div class="card">
+                                        <h1>2ª VIA DA CONTA DE ENERGIA</h1>
+                                        <h3>Consulte suas faturas, verifique débitos pendentes e emita segunda via para pagamento.</h3>
+                                        <p:messages showDetail="false" autoUpdate="true" closable="true" id="messages" />
+                                        <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                            <h:panelGroup styleClass="md-inputfield">
+                                                <p:inputText value="#{cadastroContaBean.filtro.documento}" style="font-size: 16px;" >
+                                                    <f:validator validatorId="cpfCnpjValidator"/>
+                                                </p:inputText>
+                                                <label style="font-size: 14px;">CPF/CNPJ</label>
+                                            </h:panelGroup>
+                                            <h:panelGroup styleClass="md-inputfield" rendered="true">
+                                                <p:inputText value="#{cadastroContaBean.filtro.nc}" style="font-size: 16px;"/>
+                                                <label style="font-size: 14px;">NC</label>
+                                            </h:panelGroup>
+                                            <p:commandButton id="findButton" value="Pesquisar" actionListener="#{cadastroContaBean.pesquisar}" styleClass="green-btn" update="tabelaContas"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
+                                        </p:panelGrid>
+                                        <h:panelGroup id="tabelaContas">
+                                            <p:dataTable id="listaContas" 
+                                                         var="conta" 
+                                                         value="#{cadastroContaBean.listaContas}" 
+                                                         reflow="true"  
+                                                         paginator="true" 
+                                                         rows="12"
+                                                         rendered="#{!empty cadastroContaBean.listaContas}"
+                                                         emptyMessage="Nenhum Registro Encontrado">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{cadastroContaBean.clienteSelecionado}" style="font-size: 1.2em;" /> 
+                                                </f:facet>
+                                                <p:column headerText="Referência" width="11%">
+                                                    <h:outputText value="#{conta.dataReferencia}" />
+                                                </p:column>
+                                                <p:column headerText="NC" width="8%">
+                                                    <h:outputText value="#{conta.cadastro}" />
+                                                </p:column>
+                                                <p:column headerText="Nota Fiscal" width="10%">
+                                                    <h:outputText value="#{conta.notaFiscal}" />
+                                                </p:column>
+                                                <p:column headerText="Localidade">
+                                                    <h:outputText value="#{conta.bairro} - #{conta.endereco}" />
+                                                </p:column>
+                                                <p:column headerText="Vencimento" width="12%">
+                                                    <h:outputText value="#{conta.dataVencimento}" />
+                                                </p:column>
+                                                <p:column headerText="Situação" width="12%">
+                                                    <h:outputText value="#{conta.quitado ? 'PAGO': 'PENDENTE'}" />
+                                                </p:column>
+                                                <p:column headerText="Pagamento" width="12%">
+                                                    <h:outputText value="#{conta.dataPagamento}" />
+                                                </p:column>
+
+                                                <!--                                    <p:column headerText="Imprimir">
+                                                                                        <p:commandButton icon="ui-icon-print" style="text-align: center;" action="# {cadastroContaBean.imprimirFatura(conta.id)}" ajax="false" />
+                                                                                    </p:column>-->
+
+                                                <p:column headerText="Download" width="11%">  
+                                                    <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-fw fa-download">
+                                                        <p:fileDownload value="#{cadastroContaBean.baixarConta(conta)}" />
+                                                    </p:commandButton>
+                                                </p:column>
+
+                                            </p:dataTable>
+
+                                        </h:panelGroup>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--            <div id="video">
+                                <div>
+                                    <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-6 video-description">
+                                            <h3>PrimeFaces Premium Layout and Theme</h3>
+                                            <p>Take advantage of media's most prominent business trend, and empowers your internal advertising teams.</p>
+                                            <p:button outcome="/dashboard" value="LEARN MORE"  styleClass="pink-btn"/>
+                                        </div>
+                
+                                        <div class="ui-g-12 ui-md-6">
+                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/eKQUP2el3zU" frameborder="0" allowfullscreen="true"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                <!--                <div id="pricing">
+                                    <div>
+                                        <h2>Produtos</h2>
+                                        <p>Trabalhamos com as melhores marcas e os melhores preços! </p>
+                
+                                        <p:carousel id="carousel" value="#{cadastroProdutoBean.todosProdutos}"  
+                                                    var="produto" 
+                                                    itemStyleClass="carItem" 
+                                                    itemStyle="text-align:center" 
+                                                    responsive="true"
+                                                    autoPlayInterval="100000">
+                
+                                            <div class="ui-g-12 ui-md-12">
+                                                <div class="pricing-box ">
+                                                    <div class="pricing-header">
+                                                        <h3>#{produto.nome}</h3>
+                                                        <p>R$ #{produto.valorUnitario}</p>
+                                                    </div>
+                                                    <div class="pricing-content">
+                
+                                                        <p:galleria value="#{produto.anexos}" var="image" panelWidth="200" panelHeight="200" showCaption="false">
+                                                            <p:graphicImage value="#{image}" name="#{image}" title="#{image}" cache="false"/>
+                                                        </p:galleria>
+                
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </p:carousel>
+                
+                                                                <div class="ui-g">
+                                        
+                                                                    <div class="ui-g-12 ui-md-4">
+                                                                        <div class="pricing-box ">
+                                                                            <div class="pricing-header">
+                                                                                <h3>BEGINNER</h3>
+                                                                                <p>For starts</p>
+                                                                            </div>
+                                                                            <div class="pricing-content">
+                                                                                <div class="pricing-fee">5$</div>
+                                                                                <ul>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Responsive</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Push Messages</li>
+                                                                                </ul>
+                                                                                <p:button outcome="/dashboard" styleClass="green-btn" value="BUY NOW"/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                        
+                                                                    <div class="ui-g-12 ui-md-4">
+                                                                        <div class="pricing-box pricing-box-pro">
+                                                                            <div class="pricing-header">
+                                                                                <h3>PROFESSIONAL</h3>
+                                                                                <p>Most Popular</p>
+                                                                            </div>
+                                        
+                                                                            <div class="pricing-content">
+                                                                                <div class="pricing-fee">10$</div>
+                                        
+                                                                                <ul>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Responsive</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Push Messages</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> 10 Support Tickets</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Free Shipping</li>
+                                                                                </ul>
+                                        
+                                                                                <p:button outcome="/dashboard" styleClass="green-btn" value="BUY NOW"/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                        
+                                                                    <div class="ui-g-12 ui-md-4">
+                                                                        <div class="pricing-box">
+                                                                            <div class="pricing-header">
+                                                                                <h3>ENTERPRISE</h3>
+                                                                                <p>Larger Teams</p>
+                                                                            </div>
+                                        
+                                                                            <div class="pricing-content">
+                                                                                <div class="pricing-fee">20$</div>
+                                        
+                                                                                <ul>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Responsive</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Push Messages</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> 7/24 Support</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Free Shipping</li>
+                                                                                    <li><i class="material-icons">&#xE86C;</i> Unlimited Space</li>
+                                                                                </ul>
+                                        
+                                                                                <p:button outcome="/dashboard" styleClass="green-btn" value="BUY NOW"/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                    </div>
+                                </div>-->
+
+                <div id="contact">
+                    <!--                    <div>
+                                            <h2 style="color: #ffffff;">Contato</h2>
+                                            <p style="font-size: 16px; color: #ffffff;">Mande sua mensagem que entraremos em contato</p>
+                    
+                    
+                    
+                                            <div class="ui-g">
+                                                <div class="ui-g-12 ui-md-8 contat-map">
+                                                                                    <p:graphicImage name="images/landing/map-contact.png" library="serenity-layout" />
+                                                    <p:gmap center="-22.786171, -50.223945" zoom="18" type="ROADMAP" style="width:90%;height:300px" />
+                                                </div>
+                    
+                                                <div class="ui-g-12 ui-md-4 contact-form ui-fluid">
+                                                    <div class="ui-g-12">
+                                                        <span class="md-inputfield">
+                                                            <p:inputText />
+                                                            <label>Nome</label>
+                                                        </span>
+                                                    </div>
+                    
+                                                    <div class="ui-g-12">
+                                                        <span class="md-inputfield">
+                                                            <p:inputText />
+                                                            <label>Email</label>
+                                                        </span>
+                                                    </div>
+                    
+                                                    <div class="ui-g-12">
+                                                        <span class="md-inputfield">
+                                                            <p:inputText />
+                                                            <label>Mensagem</label>
+                                                        </span>
+                                                    </div>
+                    
+                                                    <p:button outcome="/dashboard" styleClass="green-btn" value="Enviar"/>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                </div>
+
+                <div id="footer">
+                    <div>
+                        <div class="ui-g">
+                            <div class="ui-g-12 ui-md-4">
+                                <p:graphicImage name="images/logo-slim.png" library="serenity-layout" styleClass="footer-logo" />
+
+                                <div>
+                                    <h4>CERPAL PALMITAL</h4>
+                                    <p>Atendendo Palmital e Região</p>    
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-4">
+                                <h4>ENDEREÇO</h4>
+                                <p>Av Reginaldo Leão, nº 37, Centro</p>
+                                <p>Palmital - São Paulo - CEP 19970-000</p>                                
+                            </div>
+
+                            <div class="ui-g-12 ui-md-4 footer-social">
+                                <h4>TELEFONES</h4>
+                                <!--                                <p><i class="material-icons">&#xE0CD;</i> (18) 3351-3730 / (18) 3351-1423</p>  -->
+                                <p><i class="fa fa-fw fa-phone"></i> (18) 9 9748-3213</p>  
+                                <p><i class="fa fa-fw fa-whatsapp"></i> (18) 9 9777-7294</p>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+        <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="serenity-layout"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+        <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+    </h:body>
+
+</html>

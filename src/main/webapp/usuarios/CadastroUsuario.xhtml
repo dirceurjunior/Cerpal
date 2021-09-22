@@ -1,0 +1,145 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:composite="http://xmlns.jcp.org/jsf/composite/composite">
+
+    <ui:define name="titulo">#{cadastroUsuarioBean.editando ? 'Edição de Vendedor' : 'Novo Vendedor'}</ui:define>
+
+    <ui:define name="content">
+
+        <f:metadata>
+            <o:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}"/>
+            <f:viewAction action="#{cadastroUsuarioBean.inicializar}"/>
+        </f:metadata>
+
+        <h:form id="frm">
+
+            <h1 class="dk-page-title">#{cadastroUsuarioBean.editando ? 'Edição de Vendedor' : 'Novo Vendedor'}</h1>
+
+            <p:messages id="msg" autoUpdate="true" closable="true"/>
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:button value="Novo" outcome="/usuarios/CadastroUsuario"/>
+                    <p:commandButton id="botaoSalvar" value="Salvar" action="#{cadastroUsuarioBean.salvar}" update="@form"  process="@this :frm:tabview:panelDadosPessoais"/>
+                </p:toolbarGroup>
+
+                <p:toolbarGroup align="right">
+                    <p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <div class="ui-fluid">
+
+                <p:tabView id="tabview" style="margin-top: 10px;">
+
+                    <p:tab title="Dados Pessoais">
+
+                        <p:panelGrid columns="2" id="panelDadosPessoais" layout="grid" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-2, ui-grid-col-4">
+
+                            <p:outputLabel value="Código" for="codigo"/>
+                            <p:inputText id="codigo" value="#{cadastroUsuarioBean.usuario.codigo}" onkeyup="this.value = this.value.toUpperCase();"/>
+
+                            <p:outputLabel value="Nome" for="nome"/>
+                            <p:inputText id="nome" maxlength="80" value="#{cadastroUsuarioBean.usuario.nome}" onkeyup="this.value = this.value.toUpperCase();"/>
+
+                            <p:outputLabel value="CPF" for="cpf"/>
+                            <p:inputMask id="cpf" mask="999.999.999-99" value="#{cadastroUsuarioBean.usuario.cpf}">
+                                <f:validator validatorId="cpfCnpjValidator"/>
+                            </p:inputMask>
+
+                            <p:outputLabel value="E-mail" for="email"/>
+                            <p:inputText id="email" maxlength="50" value="#{cadastroUsuarioBean.usuario.email}"/>
+
+                            <p:outputLabel value="Digite sua senha" for="senhaColaborador"/>
+                            <p:password id="senhaColaborador" feedback="true" value="#{cadastroUsuarioBean.usuario.senha}" match="confirmaSenhaColaborador" validatorMessage="SENHAS NÃO CONFEREM"
+                                        weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" promptLabel="INFORME SENHA" inline="true"/>
+
+                            <p:outputLabel value="Confirme sua senha" for="confirmaSenhaColaborador"/>
+                            <p:password id="confirmaSenhaColaborador" feedback="true" weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" promptLabel="CONFIRME SENHA" inline="true"/>
+
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="3" style="margin-top: 10px;" layout="grid" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-2, ui-grid-col-4">
+                            <p:outputLabel value="Adicionar Perfil" for="perfil"/>
+                            <p:selectOneMenu id="perfil" value="#{cadastroUsuarioBean.perfil}">
+                                <f:selectItem itemLabel="SELECIONE O PERFIL"/>
+                                <f:selectItems value="#{cadastroUsuarioBean.listaPerfis}" var="perfil" itemValue="#{perfil}" itemLabel="#{perfil.descricao}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Adicionar Perfil" action="#{cadastroUsuarioBean.adicionarPerfil}" update="perfisTable" process="@this perfil frm:msg">
+                            </p:commandButton>
+                        </p:panelGrid>
+
+                        <p:dataTable id="perfisTable" var="perfil" style="margin-top: 20px;" value="#{cadastroUsuarioBean.listaPerfisSelecionados}" emptyMessage="NENHUM PERFIL ADICIONADO" rows="10" paginator="true" 
+                                     paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="10, 25, 50" reflow="true">
+                            <p:column headerText="PERFIL">
+                                <h:outputText value="#{perfil.nome}"/>
+                            </p:column>
+                            <p:column headerText="DESCRIÇÃO">
+                                <h:outputText value="#{perfil.descricao}"/>
+                            </p:column>
+                            <p:column headerText="EXCLUIR">
+                                <p:commandButton icon="ui-icon-trash" title="Excluir" oncomplete="PF('confirmacaoExclusao').show();" process="@this">
+                                    <f:setPropertyActionListener value="#{perfil}" target="#{cadastroUsuarioBean.perfil}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:confirmDialog header="Exclusão do perfil do  usuário" message="Tem certeza que deseja excluir o perfil do usuário?" widgetVar="confirmacaoExclusao">
+                            <p:button value="Não" onclick="PF('confirmacaoExclusao').hide();
+                                    return false;"/>
+                            <p:commandButton value="Sim" action="#{cadastroUsuarioBean.removerPerfil}" oncomplete="PF('confirmacaoExclusao').hide();" process="@this" update="perfil perfisTable"/>
+                        </p:confirmDialog>
+
+                    </p:tab>
+
+                    <p:tab title="Endereço">
+
+                        <composite:endereco id="compositeEndereco"
+                                            tipoEndereco="#{cadastroUsuarioBean.endereco.tipo}"
+                                            endereco="#{cadastroUsuarioBean.endereco.endereco}"
+                                            complemento="#{cadastroUsuarioBean.endereco.complemento}"
+                                            bairro="#{cadastroUsuarioBean.endereco.bairro}"
+                                            cep="#{cadastroUsuarioBean.endereco.cep}"
+                                            municipio="#{cadastroUsuarioBean.endereco.municipio}"
+                                            enderecoSelecionado="#{cadastroUsuarioBean.enderecoSelecionado}"
+                                            listaEnderecos="#{cadastroUsuarioBean.usuario.enderecos}"
+                                            botaoNovoEndereco="#{cadastroUsuarioBean.novoEndereco}"
+                                            botaoAdicionarEndereco="#{cadastroUsuarioBean.adicionarEndereco}"
+                                            botaoRemoverEndereco="#{cadastroUsuarioBean.removerEndereco}">
+                        </composite:endereco>
+
+                    </p:tab>
+
+                    <p:tab title="Contato">
+
+                        <composite:contato id="compositeContato"
+                                           tipoContato="#{cadastroUsuarioBean.contato.tipo}"
+                                           codigoArea="#{cadastroUsuarioBean.contato.codigoArea}"
+                                           numero="#{cadastroUsuarioBean.contato.numero}"
+                                           observacaoContato="#{cadastroUsuarioBean.contato.observacao}"
+                                           contatoSelecionado="#{cadastroUsuarioBean.contatoSelecionado}"
+                                           listaContatos="#{cadastroUsuarioBean.usuario.contatos}"
+                                           mascaraNumero="#{cadastroUsuarioBean.contato.celular  ? '99999-9999' : '9999-9999'}"
+                                           botaoNovoContato="#{cadastroUsuarioBean.novoContato}"
+                                           botaoAdicionarContato="#{cadastroUsuarioBean.adicionarContato}"
+                                           botaoRemoverContato="#{cadastroUsuarioBean.removerContato}">
+                        </composite:contato>
+
+                    </p:tab>
+
+                </p:tabView>
+
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+

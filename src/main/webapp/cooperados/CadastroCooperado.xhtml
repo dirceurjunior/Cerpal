@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Message</ui:define>
+
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-button {
+                margin-right: 400px;
+            }
+
+            .form-grid td {
+                padding: 16px 2px;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li>Components</li>
+        <li>/</li>
+        <li><p:link outcome="/contas/CadastroConta">Contas</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <div class="ui-fluid">
+
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="card">
+                            <h1>COOPERADOS</h1>
+                            <h3>Controle de Cooperados </h3>
+                            <p:tooltip />
+                            <p:messages showDetail="false" autoUpdate="true" closable="true" id="messages"  />
+
+                            <p:toolbar style="margin-bottom: 15px;">
+                                <p:toolbarGroup>
+                                    <p:commandButton id="botaoSalvar" 
+                                                     styleClass="green-btn"
+                                                     value="Salvar" 
+                                                     action="#{cadastroCooperadoBean.salvar}"
+                                                     update="@form"/>
+                                </p:toolbarGroup>
+
+                                <p:toolbarGroup align="right">
+                                    <p:commandButton id="botaoAtualizarCooperados" 
+                                                     styleClass="green-btn"
+                                                     value="Atualizar Cooperados" 
+                                                     action="#{cadastroCooperadoBean.atualizarCooperados}"
+                                                     update="@form"/>                                
+                                </p:toolbarGroup>
+                            </p:toolbar>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

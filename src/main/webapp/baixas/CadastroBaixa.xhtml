@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Message</ui:define>
+
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-button {
+                margin-right: 400px;
+            }
+
+            .form-grid td {
+                padding: 16px 2px;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li>Components</li>
+        <li>/</li>
+        <li><p:link outcome="/baixas/CadastroBaixa">Recebimentos</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <div class="ui-fluid">
+
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <div class="card">
+                            <h1>RECEBIMENTOS</h1>
+                            <h3>Selecione o arquivo para inclusão de contas pagas. </h3>
+                            <p:tooltip />
+
+                            <p:messages showDetail="false" autoUpdate="true" closable="true" id="messages" />
+
+                            <p:fileUpload fileUploadListener="#{cadastroContaBean.carregarArquivoBaixa}"
+                                          oncomplete="isFileListEmpty(PF('uploadWidget'), uploadsFinished);" 
+                                          widgetVar="uploadWidget"
+                                          cancelLabel="Cancelar"
+                                          uploadLabel="Carregar"
+                                          label="Selecionar Arquivo"
+                                          mode="advanced" 
+                                          dragDropSupport="false"
+                                          multiple="false"
+                                          update="messages" 
+                                          sizeLimit="2000000" 
+                                          fileLimit="1"
+                                          allowTypes="/(\.|\/)(TXT|txt|gif|jpe?g|png)$/" 
+                                          style="width:100%" />
+                            <p:remoteCommand name="uploadsFinished" actionListener="#{cadastroContaBean.terminou()}" />
+                            <script type="text/javascript">
+                                function isFileListEmpty(fileupload, finished) {
+                                    if (fileupload.files.length === 0) {
+                                        if (finished) {
+                                            finished();
+                                        }
+                                    }
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
