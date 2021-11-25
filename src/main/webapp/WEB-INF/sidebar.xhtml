@@ -24,15 +24,15 @@
                             <p:submenu id="sr_faturas" label="Faturas" icon="&#xE8B8;" rendered="true">
                                 <p:menuitem id="sr_conta" value="Incluir" icon="&#xE871;" outcome="/contas/CadastroConta"/>
                                 <p:menuitem id="sr_baixa" value="Baixar" icon="&#xE871;" outcome="/baixas/CadastroBaixa"/>
-                                <p:menuitem id="sr_alteracao" value="Alterar" icon="&#xE871;" outcome="/baixas/CadastroBaixa"/>
+                                <p:menuitem id="sr_alteracao" value="Alterar" icon="&#xE871;" outcome="/baixas/CadastroBaixa" rendered="false"/>
                             </p:submenu>
 
                             <p:menuitem id="sr_2conta" value="2ª Via Conta" icon="&#xE871;" outcome="/contas/SegundaVia"/>
-                            <p:menuitem id="sr_sms" value="Enviar SMS" icon="&#xE871;" outcome="/sms/EnviarSMS"/>
-                            <p:menuitem id="sr_compactar" value="Compactar" icon="&#xE871;" outcome="/contas/CompactarArquivo"/>
-                            <p:menuitem id="sr_cooperados" value="Cooperados" icon="&#xE871;" outcome="/cooperados/CadastroCooperado"/>
-                            <p:menuitem id="sr_produto" value="Produtos" icon="&#xE871;" outcome="/produtos/CadastroProduto"/>
-                            <p:menuitem id="sr_usuario" value="Usuários" icon="&#xE871;" outcome="/usuarios/CadastroUsuario"/>
+                            <p:menuitem id="sr_sms" value="Enviar SMS" icon="&#xE871;" outcome="/sms/EnviarSMS" rendered="false"/>
+                            <p:menuitem id="sr_compactar" value="Compactar" icon="&#xE871;" outcome="/contas/CompactarArquivo" rendered="false"/>
+                            <p:menuitem id="sr_cooperados" value="Cooperados" icon="&#xE871;" outcome="/cooperados/CadastroCooperado" rendered="false"/>
+                            <p:menuitem id="sr_produto" value="Produtos" icon="&#xE871;" outcome="/produtos/CadastroProduto" rendered="false"/>
+                            <p:menuitem id="sr_usuario" value="Usuários" icon="&#xE871;" outcome="/usuarios/CadastroUsuario" rendered="false"/>
                             <p:menuitem id="sr_website" value="Website" icon="&#xE871;" outcome="/landing"/>
                             <p:submenu id="sr_customization1" label="Menu Modes" icon="&#xE8B8;" rendered="false">
                                 <p:menuitem id="menu1" value="Light Menu" icon="&#xE893;" actionListener="#{guestPreferences.setDarkMenu(false)}" ajax="false"/>
