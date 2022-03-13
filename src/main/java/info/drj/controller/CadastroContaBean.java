@@ -154,7 +154,9 @@ public class CadastroContaBean implements Serializable {
                 conta.setNotaFiscal(lines[2].substring(lines[2].length() - 7, lines[2].length()).trim());
                 existente = contas.porNotaFiscal(conta.getNotaFiscal());
                 if (existente != null) {
-                    listaAlerta.add("COOPERADO " + existente.getNome() + " REFERENCIA " + existente.getDataReferencia() + " JÁ FOI LANÇADA\r\n");
+                    listaAlerta.add("COOPERADO " + existente.getNome()
+                            + " REFERENCIA " + existente.getDataReferencia()
+                            + " JÁ FOI LANÇADA\r\n");
                     limpar();
                 } else {
                     conta.setNome(lines[1].substring(0, lines[1].length() - 25).trim());
@@ -189,7 +191,9 @@ public class CadastroContaBean implements Serializable {
                     }
                     conta.setArquivo(arquivo);
                     conta.setDataHoraLancamento(LocalDateTime.now());
-                    listaSucesso.add("COOPERADO " + conta.getNome() + " REFERENCIA " + conta.getDataReferencia() + " LANÇADA COM SUCESSO\r\n");
+                    listaSucesso.add("COOPERADO " + conta.getNome()
+                            + " REFERENCIA " + conta.getDataReferencia()
+                            + " LANÇADA COM SUCESSO\r\n");
                     salvar();
                 }
             } else {
@@ -202,9 +206,13 @@ public class CadastroContaBean implements Serializable {
 
     public StreamedContent baixarConta(Conta conta) throws IOException, DocumentException {
         if (conta.isQuitado()) {
-            return new DefaultStreamedContent(new ByteArrayInputStream(adicionarMarca(conta)), "application/octet-stream", conta.getDataReferencia().replaceAll("/", "") + "_" + conta.getCadastro() + "_" + conta.getNome() + ".pdf");
+            return new DefaultStreamedContent(new ByteArrayInputStream(adicionarMarca(conta)),
+                    "application/octet-stream", conta.getDataReferencia().replaceAll("/", "")
+                    + "_" + conta.getCadastro() + "_" + conta.getNome() + ".pdf");
         } else {
-            return new DefaultStreamedContent(new ByteArrayInputStream(conta.getArquivo()), "application/octet-stream", conta.getDataReferencia().replaceAll("/", "") + "_" + conta.getCadastro() + "_" + conta.getNome() + ".pdf");
+            return new DefaultStreamedContent(new ByteArrayInputStream(conta.getArquivo()),
+                    "application/octet-stream", conta.getDataReferencia().replaceAll("/", "")
+                    + "_" + conta.getCadastro() + "_" + conta.getNome() + ".pdf");
         }
     }
 
@@ -321,7 +329,6 @@ public class CadastroContaBean implements Serializable {
     }
 
     public void atualizaMensagemSucesso() {
-        //FacesUtil.addInfoMessage(" ---- BAIXAS REALIZADAS COM SUCESSO ----");
         for (Iterator iterator = listaSucesso.iterator(); iterator.hasNext();) {
             String mensagem = (String) iterator.next();
             FacesUtil.addInfoMessage(mensagem);

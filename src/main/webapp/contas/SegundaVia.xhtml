@@ -33,7 +33,7 @@
                         <div class="card">
 
                             <h1>2ª VIA DA CONTA DE ENERGIA</h1>
-                            <h3>Consulte suas faturas, verifique débitos pendentes e emita segunda via para pagamento.</h3>
+                            <h3>Consulta de Faturas</h3>
                             <p:messages showDetail="false" autoUpdate="true" closable="true" id="messages" />
 
                             <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
@@ -61,8 +61,8 @@
                                              var="conta" 
                                              value="#{cadastroContaBean.listaContas}" 
                                              reflow="true"  
-                                             paginator="true" 
-                                             rows="10"
+                                             paginator="false"
+                                             rows="100"
                                              rendered="#{!empty cadastroContaBean.listaContas}"
                                              emptyMessage="Nenhum Registro Encontrado">
 
