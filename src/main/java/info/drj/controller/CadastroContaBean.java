@@ -134,7 +134,10 @@ public class CadastroContaBean implements Serializable {
         if (listaContas.isEmpty()) {
             throw new NegocioException("NENHUM REGISTRO ENCONTRADO");
         } else {
-            setClienteSelecionado(listaContas.get(0).getNome());
+            setClienteSelecionado(listaContas.get(0).getNome() + 
+                    " - NC - " + listaContas.get(0).getCadastro() +
+                    " - Bairro - " + listaContas.get(0).getBairro() +
+                    " - Endereço - " + listaContas.get(0).getEndereco());
         }
     }
 

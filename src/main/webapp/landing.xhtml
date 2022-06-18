@@ -57,7 +57,7 @@
                 color: #CDDC39;
                 font-weight: 900;
             }
-        </style>      
+        </style>    
 
         <h:outputScript name="js/layout.js" library="serenity-layout" />
         <h:outputScript name="js/ripple.js" library="serenity-layout" />
@@ -217,21 +217,27 @@
                             com a presença de cerca de 100 pessoas, entre eles Rubens Rossi, Eloy Atanis Garcia, Beto Leão, Sebastião Batista de Oliveira, 
                             José Pascoalino dos Reis, Ângelo Biazon, Anísio Zimermano, Eurico Messias Cunha, Adão José Alves, João Bernado, Pedro Magrinelli,
                             Valter José Monteiro, Ermelindo Orlandi, Valdinei Côco, Agostino Henrique de Faria e Alcides Montechiese.
-                            Rubens Rossi liderou o grupo de proprietários rurais que fundou a <b>CERPAL</b>. Eleito primeiro presidente da entidade, ele lembrou das 
-                            dificuldades da montagem da cooperativa de eletrificação rural, pois muitos agricultores não acreditavam que o projeto poderia dar certo em Palmital.<br/>
-                            A <b>CERPAL</b> pode ser considerada como concretização de um sonho iniciado por um grupo de produtores rurais de Palmital, que hoje auxilia 
-                            no desenvolvimento e na qualidade de vida na zona rural da região. Com este espírito empreendedor, enfrentaram dificuldades e conseguiram levar
-                            adiante o projeto de cooperativismo no setor de eletrificação rural, estendendo redes de energia que hoje cotam oito municípios.
-                            A Cooperativa se instalou inicialmente, em junho de 1978, num prédio alugado de Manoel Rainho na Rua José Florêncio Dias nº 20, 
-                            onde começaram os trabalhos administrativos e organizacionais da entidade. Com o crescimento das atividades, 
-                            a <b>CERPAL</b> transferiu suas atividades em 1983  para o prédio maior, na Rua Duque de Caxias nº 187. 
-                            Foi a primeira sede própria da cooperativa, adquirida de Celestino Moreno Parra. Contudo, as amplas instalações não foram suficientes para atender
-                            constante desenvolvimento dos trabalhos e foi utilizado até dezembro 1998, quando houve a compra de uma nova sede. O atual prédio da Cerpal, 
-                            adquirido de Ney Moreira, está localizado na Avenida Reginaldo Leão, nº 37.
+                            Rubens Rossi liderou o grupo de proprietários rurais que fundou a <b>CERPAL</b>.
+                            <span id="pontos"></span>
+                            <span id="mais">
+                                Eleito primeiro presidente da entidade, ele lembrou das 
+                                dificuldades da montagem da cooperativa de eletrificação rural, pois muitos agricultores não acreditavam que o projeto poderia dar certo em Palmital.<br/>
+                                A <b>CERPAL</b> pode ser considerada como concretização de um sonho iniciado por um grupo de produtores rurais de Palmital, que hoje auxilia 
+                                no desenvolvimento e na qualidade de vida na zona rural da região. Com este espírito empreendedor, enfrentaram dificuldades e conseguiram levar
+                                adiante o projeto de cooperativismo no setor de eletrificação rural, estendendo redes de energia que hoje cotam oito municípios.
+                                A Cooperativa se instalou inicialmente, em junho de 1978, num prédio alugado de Manoel Rainho na Rua José Florêncio Dias nº 20, 
+                                onde começaram os trabalhos administrativos e organizacionais da entidade. Com o crescimento das atividades, 
+                                a <b>CERPAL</b> transferiu suas atividades em 1983  para o prédio maior, na Rua Duque de Caxias nº 187. 
+                                Foi a primeira sede própria da cooperativa, adquirida de Celestino Moreno Parra. Contudo, as amplas instalações não foram suficientes para atender
+                                constante desenvolvimento dos trabalhos e foi utilizado até dezembro 1998, quando houve a compra de uma nova sede. O atual prédio da Cerpal, 
+                                adquirido de Ney Moreira, está localizado na Avenida Reginaldo Leão, nº 37.
+                            </span>
                         </p>
-                        <!--                    <p:button outcome="/dashboard" value="LEARN MORE"  styleClass="pink-btn"/>-->
+
                     </div>
                 </div>
+
+                <!--                <button onclick="leiaMais()" id="btnLeiaMais">Leia Mais</button>-->
 
                 <div id="features">
                     <div>
@@ -310,40 +316,39 @@
                                                          rendered="#{!empty cadastroContaBean.listaContas}"
                                                          emptyMessage="Nenhum Registro Encontrado">
                                                 <f:facet name="header">
-                                                    <h:outputText value="#{cadastroContaBean.clienteSelecionado} / #{conta.bairro} - #{conta.endereco}" 
+                                                    <h:outputText value="#{cadastroContaBean.clienteSelecionado}" 
                                                                   style="font-size: 1.2em;" /> 
                                                 </f:facet>
-                                                <p:column headerText="Referência" width="11%">
+                                                <p:column headerText="Referência" width="">
                                                     <h:outputText value="#{conta.dataReferencia}" />
                                                 </p:column>
-                                                <p:column headerText="NC" width="8%">
+                                                <p:column headerText="NC" width="" rendered="false">
                                                     <h:outputText value="#{conta.cadastro}" />
                                                 </p:column>
-                                                <p:column headerText="Nota Fiscal" width="10%">
+                                                <p:column headerText="Nota Fiscal" width="">
                                                     <h:outputText value="#{conta.notaFiscal}" />
                                                 </p:column>
-                                                <p:column headerText="Localidade">
+                                                <p:column headerText="Localidade" rendered="false">
                                                     <h:outputText value="#{conta.bairro} - #{conta.endereco}" />
                                                 </p:column>
-                                                <p:column headerText="Vencimento" width="12%">
+                                                <p:column headerText="Vencimento" width="%">
                                                     <h:outputText value="#{conta.dataVencimento}" />
                                                 </p:column>
-                                                <p:column headerText="Valor" width="">
+                                                <p:column headerText="Valor">
                                                     <h:outputText value="R$ #{conta.valorTotal}" />
                                                 </p:column>
-                                                <p:column headerText="Situação" width="12%">
+                                                <p:column headerText="Situação" width="">
                                                     <h:outputText value="#{conta.quitado ? 'PAGO': 'PENDENTE'}" />
                                                 </p:column>
-                                                <p:column headerText="Pagamento" width="12%">
+                                                <p:column headerText="Pagamento" width="">
                                                     <h:outputText value="#{conta.dataPagamento}" />
                                                 </p:column>
 
-                                                <!--                                    <p:column headerText="Imprimir">
-                                                                                        <p:commandButton icon="ui-icon-print" style="text-align: center;" action="# {cadastroContaBean.imprimirFatura(conta.id)}" ajax="false" />
-                                                                                    </p:column>-->
-
-                                                <p:column headerText="Download" width="11%">  
-                                                    <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-fw fa-download">
+                                                <p:column headerText="Download" width="">  
+                                                    <p:commandButton ajax="false" 
+                                                                     rendered="#{!conta.download}"
+                                                                     onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                                     icon="fa fa-fw fa-download">
                                                         <p:fileDownload value="#{cadastroContaBean.baixarConta(conta)}" />
                                                     </p:commandButton>
                                                 </p:column>
@@ -546,7 +551,9 @@
 
         <h:outputStylesheet name="css/layout-#{guestPreferences.layout}.css" library="serenity-layout"/>
         <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
-        <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+        <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" /> 
+
+        <h:outputScript name="js/script.js" library="serenity-layout" />
 
     </h:body>
 

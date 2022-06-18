@@ -86,6 +86,11 @@ public class Conta implements Serializable {
     public boolean isQuitado() {
         return quitado;
     }
+    
+    @Transient
+    public boolean isDownload(){
+        return getArquivo() == null;
+    }
 
     public Long getId() {
         return id;
