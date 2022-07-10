@@ -29,7 +29,7 @@
 
         <style type="text/css">
             .landing-body #contact {
-                background-color:  #1B5E20 !important; 
+                background-color:  #1B5E20 !important;
             }
             .landing-body #contact
             .md-inputfield label {
@@ -348,15 +348,14 @@
                                                     <p:commandButton ajax="false" 
                                                                      rendered="#{!conta.download}"
                                                                      onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                                     icon="fa fa-fw fa-download">
+                                                                     icon="fa fa-fw fa-download"
+                                                                     value="Fatura"
+                                                                     style="height:24px">
                                                         <p:fileDownload value="#{cadastroContaBean.baixarConta(conta)}" />
                                                     </p:commandButton>
                                                 </p:column>
-
                                             </p:dataTable>
-
                                         </h:panelGroup>
-
                                     </div>
                                 </div>
                             </div>

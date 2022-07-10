@@ -127,17 +127,32 @@ public class CadastroContaBean implements Serializable {
     }
 
     public void pesquisar() {
-        if (filtro.getDocumento().isEmpty() && filtro.getNc().isEmpty()) {
-            throw new NegocioException("FAVOR PREENCHER PELO MENOS UMA INFORMAÇÃO");
+        if (usuarioLogado != null) {
+            if (usuarioLogado.isAdministrador()) {
+                if (filtro.getDocumento().isEmpty() && filtro.getNc().isEmpty()) {
+                    listaContas = null;
+                    throw new NegocioException("Favor preencher CPF/CNPJ ou NÚMERO CADASTRO");
+                }
+            } else {
+                if (filtro.getDocumento().isEmpty() || filtro.getNc().isEmpty()) {
+                    listaContas = null;
+                    throw new NegocioException("Favor preencher CPF ou CNPJ e NÚMERO CADASTRO");
+                }
+            }
+        } else {
+            if (filtro.getDocumento().isEmpty() || filtro.getNc().isEmpty()) {
+                listaContas = null;
+                throw new NegocioException("Favor preencher CPF ou CNPJ e NÚMERO CADASTRO");
+            }
         }
         listaContas = contas.filtrados(filtro);
         if (listaContas.isEmpty()) {
             throw new NegocioException("NENHUM REGISTRO ENCONTRADO");
         } else {
-            setClienteSelecionado(listaContas.get(0).getNome() + 
-                    " - NC - " + listaContas.get(0).getCadastro() +
-                    " - Bairro - " + listaContas.get(0).getBairro() +
-                    " - Endereço - " + listaContas.get(0).getEndereco());
+            setClienteSelecionado(listaContas.get(0).getNome()
+                    + " - NC - " + listaContas.get(0).getCadastro()
+                    + " - Bairro - " + listaContas.get(0).getBairro()
+                    + " - Endereço - " + listaContas.get(0).getEndereco());
         }
     }
 
@@ -145,7 +160,7 @@ public class CadastroContaBean implements Serializable {
         //Cria um arquivo UploadFile, para receber o arquivo do evento
         //UploadedFile file = event.getFile();
         byte[] arquivo = compactarArquivo(event);
-        try (PDDocument document = PDDocument.load(arquivo)) {
+        try ( PDDocument document = PDDocument.load(arquivo)) {
             if (!document.isEncrypted()) {
                 PDFTextStripperByArea stripper = new PDFTextStripperByArea();
                 stripper.setSortByPosition(true);

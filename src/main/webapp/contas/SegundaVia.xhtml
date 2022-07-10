@@ -32,90 +32,74 @@
                     <div class="ui-g-12">
                         <div class="card">
 
-                            <h1>2ª VIA DA CONTA DE ENERGIA</h1>
+                            <h2>2ª VIA DA CONTA DE ENERGIA</h2>
                             <h3>Consulta de Faturas</h3>
                             <p:messages showDetail="false" autoUpdate="true" closable="true" id="messages" />
 
                             <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank form-group">
                                 <h:panelGroup styleClass="md-inputfield">
-                                    <p:inputText value="#{cadastroContaBean.filtro.documento}" style="font-size: 16px;" >
+                                    <p:inputText value="#{cadastroContaBean.filtro.documento}" style="font-size: 14px;" >
                                         <f:validator validatorId="cpfCnpjValidator"/>
                                     </p:inputText>
-                                    <label style="font-size: 14px;">CPF/CNPJ</label>
+                                    <label style="font-size: 12px;">CPF/CNPJ</label>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="md-inputfield" rendered="true">
-                                    <p:inputText value="#{cadastroContaBean.filtro.nc}" style="font-size: 16px;"/>
-                                    <label style="font-size: 14px;">NC</label>
+                                    <p:inputText value="#{cadastroContaBean.filtro.nc}" style="font-size: 14px;"/>
+                                    <label style="font-size: 12px;">NC</label>
                                 </h:panelGroup>
-
                                 <p:commandButton id="findButton" value="Pesquisar" actionListener="#{cadastroContaBean.pesquisar}" styleClass="green-btn" update="tabelaContas"/>
-
                             </p:panelGrid>
-
                             <p:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank form-group">
-
                             </p:panelGrid>
-
                             <h:panelGroup id="tabelaContas">
                                 <p:dataTable id="listaContas" 
                                              var="conta" 
                                              value="#{cadastroContaBean.listaContas}" 
                                              reflow="true"  
-                                             paginator="false"
-                                             rows="100"
+                                             paginator="true" 
+                                             rows="12"
                                              rendered="#{!empty cadastroContaBean.listaContas}"
                                              emptyMessage="Nenhum Registro Encontrado">
-
                                     <f:facet name="header">
-                                        <h:outputText value="#{cadastroContaBean.clienteSelecionado}" style="font-size: 1.2em;" /> 
+                                        <h:outputText value="#{cadastroContaBean.clienteSelecionado}" 
+                                                      style="font-size: 1.2em;" /> 
                                     </f:facet>
-
-                                    <p:column headerText="Referência" width="11%">
+                                    <p:column headerText="Referência" width="">
                                         <h:outputText value="#{conta.dataReferencia}" />
                                     </p:column>
-
-                                    <p:column headerText="NC" width="8%">
+                                    <p:column headerText="NC" width="" rendered="false">
                                         <h:outputText value="#{conta.cadastro}" />
                                     </p:column>
-
-                                    <p:column headerText="Nota Fiscal" width="10%">
+                                    <p:column headerText="Nota Fiscal" width="">
                                         <h:outputText value="#{conta.notaFiscal}" />
                                     </p:column>
-
-                                    <p:column headerText="Localidade">
+                                    <p:column headerText="Localidade" rendered="false">
                                         <h:outputText value="#{conta.bairro} - #{conta.endereco}" />
                                     </p:column>
-
-                                    <p:column headerText="Vencimento" width="12%">
+                                    <p:column headerText="Vencimento" width="%">
                                         <h:outputText value="#{conta.dataVencimento}" />
                                     </p:column>
-                                    
-                                    <p:column headerText="Valor" width="12%">
-                                        <h:outputText value="R$ #{conta.valorTotal}" style="text-align: center;" />
+                                    <p:column headerText="Valor">
+                                        <h:outputText value="R$ #{conta.valorTotal}" />
                                     </p:column>
-
-                                    <p:column headerText="Situação" width="12%">
+                                    <p:column headerText="Situação" width="">
                                         <h:outputText value="#{conta.quitado ? 'PAGO': 'PENDENTE'}" />
                                     </p:column>
-
-                                    <p:column headerText="Pagamento" width="12%">
+                                    <p:column headerText="Pagamento" width="">
                                         <h:outputText value="#{conta.dataPagamento}" />
                                     </p:column>
-
-                                    <!--                                    <p:column headerText="Imprimir">
-                                                                            <p:commandButton icon="ui-icon-print" style="text-align: center;" action="# {cadastroContaBean.imprimirFatura(conta.id)}" ajax="false" />
-                                                                        </p:column>-->
-
-                                    <p:column headerText="Download" width="11%">  
-                                        <p:commandButton ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="fa fa-fw fa-download">
+                                    <p:column headerText="Download" width="">  
+                                        <p:commandButton ajax="false" 
+                                                         rendered="#{!conta.download}"
+                                                         onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                         icon="fa fa-fw fa-download"
+                                                         value="Fatura"
+                                                         style="height:24px">
                                             <p:fileDownload value="#{cadastroContaBean.baixarConta(conta)}" />
                                         </p:commandButton>
                                     </p:column>
-
                                 </p:dataTable>
-
                             </h:panelGroup>
-
                         </div>
                     </div>
                 </div>
